@@ -1,0 +1,21 @@
+*linux
+  >  sudo vim /etc/hosts
+
+*windows
+C:\windows\system32\drivers\etc\hosts
+
+
+127.0.0.1 blue.labs.com.br
+127.0.0.1 greens.labs.com.br
+127.0.0.1 labs.com.br
+
+APP Vempraka e Anoteja
+front: react
+back:  golang
+dbt:   postgres
+
+APP CRM
+front: react typescript
+back:  node
+dbt:   mysql
+
