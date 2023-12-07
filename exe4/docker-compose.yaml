@@ -4,18 +4,19 @@ services:
 
   backend:
     build: 
-      context: gatekeeper
+      context: node
     container_name: backend
     restart: always
-    # working_dir: /usr/src/app
+    working_dir: /usr/src/app
     networks: 
       - node-network
-    # volumes: 
-    #   - ./node:/usr/src/app
-    #   - /usr/src/app/node_modules
+    volumes: 
+      - ./node:/usr/src/app
+      - /usr/src/app/node_modules
     tty: true
     ports: 
-      - "3000:3000"
+      - "3001:3001"
+    command: npm run start
     depends_on:
        - db
 
@@ -32,24 +33,27 @@ services:
       - /usr/src/app/node_modules
     tty: true
     ports: 
-      - "5173:5173"
-    command: npm run dev
+      - "3000:3000"
+    # command: npm run dev
+    command: npm start
 
 
   db:
-      image: postgres
-      container_name: db
-      restart: always
-      tty: true
-      volumes:
-        - ./db/data:/data/postgres
-      environment:
-        POSTGRES_USER: root
-        POSTGRES_PASSWORD: root
-        POSTGRES_DB: vpk
-      ports:
-        - "5432:5432"
-      networks: 
+    image: mysql:5.7
+    container_name: db
+    restart: always
+    tty: true
+    volumes:
+      - ./data:/var/lib/mysql
+    
+    environment: 
+      MYSQL_DATABASE: dbcrm
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 123qwe
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    ports: 
+      - "3306:3306"
+    networks: 
       - node-network
 
   nginx:
@@ -60,12 +64,14 @@ services:
     tty: true
     ports: 
       - "80:80"
+      # - "8000:80"
     networks: 
       - node-network
     depends_on:
        - backend
        - frontend
 
+  
 networks: 
   node-network:
     driver: bridge    

@@ -1,0 +1,5 @@
+.btn:hover {
+  box-shadow: 10px 10px 76px -56px rgba(0, 0, 0, 1) inset !important;
+  -webkit-box-shadow: 10px 10px 76px -56px rgba(0, 0, 0, 1) inset !important;
+  -moz-box-shadow: 10px 10px 76px -56px rgba(0, 0, 0, 1) inset !important;
+}
